@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import {FormEvent, useState} from 'react'
+import {useState} from 'react'
 import {copyToClipboard} from '~/utils'
 
 const placeholder = {
@@ -16,13 +16,17 @@ export const Form = () => {
 		`${process.env.NEXT_PUBLIC_API_URL}?url=${placeholder.url}`
 	)
 
-	const submit = async (e: FormEvent) => {
+	const submit = async e => {
 		e.preventDefault()
 
 		const start = Date.now()
 
-		const blob = await fetch(endpoint).then(res => res.blob())
-		const obj = URL.createObjectURL(blob)
+		const form = new FormData(e.target)
+		const upload = form.get('upload')
+
+		const res = await fetch(endpoint)
+		const file = await res[upload ? 'text' : 'blob']()
+		const obj = upload ? file : URL.createObjectURL(file as Blob)
 
 		setTime(Date.now() - start)
 
@@ -47,27 +51,21 @@ export const Form = () => {
 					return curr.href
 				})
 			}}
-			className='w-full max-w-6xl space-y-5'>
-			<input
-				name='url'
-				type='text'
-				defaultValue={placeholder.url}
-			/>
+			className='w-full max-w-6xl space-y-8'>
 			<div className='flex gap-2'>
+				<input
+					name='url'
+					type='text'
+					defaultValue={placeholder.url}
+				/>
+				<button type='submit'>Take screenshot</button>
+			</div>
+			<div className='flex justify-end gap-2'>
 				<input
 					name='upload'
 					type='checkbox'
 				/>
-				<label htmlFor='upload'>Return URL</label>
-			</div>
-			<button type='submit'>Take screenshot</button>
-			<div className='flex items-center gap-2'>
-				<code>{endpoint}</code>
-				<button
-					type='button'
-					onClick={() => copyToClipboard(endpoint)}>
-					Copy
-				</button>
+				<label htmlFor='upload'>Upload to bucket</label>
 			</div>
 			<div className='relative h-96 w-full'>
 				<Image
@@ -77,11 +75,17 @@ export const Form = () => {
 					alt='screenshot'
 				/>
 			</div>
-			{time && (
-				<div>
-					Done in <span className='font-bold'>{time} ms</span>.
-				</div>
-			)}
+			<div className={time ? 'opacity-100' : 'opacity-0'}>
+				Done in <span className='font-bold'>{time} ms</span>.
+			</div>
+			<div className='flex w-full items-center justify-between gap-2'>
+				<code className='grow'>{endpoint}</code>
+				<button
+					type='button'
+					onClick={() => copyToClipboard(endpoint)}>
+					Copy
+				</button>
+			</div>
 		</form>
 	)
 }
