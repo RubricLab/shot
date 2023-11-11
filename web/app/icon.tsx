@@ -14,8 +14,8 @@ export default async function Icon() {
 			<div
 				style={{
 					alignItems: 'center',
-					background: 'black',
-					color: 'white',
+					background: 'white',
+					color: 'black',
 					display: 'flex',
 					fontWeight: 700,
 					fontSize: 28,
@@ -23,7 +23,7 @@ export default async function Icon() {
 					justifyContent: 'center',
 					width: '100%'
 				}}>
-				R
+				S
 			</div>
 		),
 		{

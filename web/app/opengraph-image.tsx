@@ -1,10 +1,9 @@
 import {ImageResponse} from 'next/og'
-import colors from 'tailwindcss/colors'
 import BackgroundGrid from '~/components/BackgroundGrid'
 
 export const runtime = 'edge'
 
-export const alt = 'Rubric logo with subtitle: We build software.'
+export const alt = 'Shot: built with Rubric.'
 export const contentType = 'image/png'
 export const size = {
 	height: 630,
@@ -16,12 +15,14 @@ type Props = {
 }
 
 export default async function Image({params}: Props) {
+	// TODO: return screenshot using params
+
 	return new ImageResponse(
 		(
 			<div
 				style={{
 					alignItems: 'center',
-					background: colors['black'],
+					background: 'white',
 					display: 'flex',
 					flexDirection: 'column',
 					height: '100%',
@@ -36,8 +37,8 @@ export default async function Image({params}: Props) {
 						width: size.width
 					}}
 				/>
-				<div style={{color: colors['white'], fontSize: 128}}>Jarvis</div>
-				<div style={{color: colors['white'], fontSize: 48}}>Built with Rubric.</div>
+				<div style={{color: 'black', fontSize: 128}}>Shot</div>
+				<div style={{color: 'black', fontSize: 48}}>Built with Rubric.</div>
 			</div>
 		),
 		{
