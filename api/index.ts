@@ -32,6 +32,8 @@ Bun.serve({
 
     const res = new Response(screenshot);
 
+    res.headers.set("Content-Type", "image/png");
+
     // Set generous CORS headers
     res.headers.set("Access-Control-Allow-Origin", "*");
     res.headers.set("Access-Control-Allow-Headers", "*");
