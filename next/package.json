@@ -3,6 +3,7 @@
     "@prisma/client": "5.5.2",
     "next": "^14.0.1",
     "prisma": "^5.5.2",
+    "puppeteer-core": "^21.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sqlite3": "^5.1.6"
