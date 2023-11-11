@@ -39,7 +39,7 @@ function Form() {
 				<Image
 					src={img}
 					fill
-					className='object-cover'
+					className='object-contain'
 					alt='screenshot'
 				/>
 			</div>
