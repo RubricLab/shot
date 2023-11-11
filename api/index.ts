@@ -1,12 +1,20 @@
 import puppeteer from "puppeteer-core";
 
-const server = Bun.serve({
+Bun.serve({
   hostname: "::",
   port: process.env.PORT ?? 3000,
   fetch: async (request: Request) => {
+    console.log("Starting up");
+
     const { searchParams } = new URL(request.url);
 
-    const url = searchParams.get("url") || "https://rubric.sh";
+    let url = searchParams.get("url");
+
+    if (!url) return new Response("Do ?url=https://example.com");
+
+    console.log("URL: ", url);
+
+    if (!url.startsWith("https://")) url = `https://${url.split("://")[1]}`;
 
     const browser = await puppeteer.connect({
       browserWSEndpoint: process.env.BROWSER_URL,
@@ -14,9 +22,8 @@ const server = Bun.serve({
 
     const page = await browser.newPage();
 
-    await page.goto(url, {
-      waitUntil: "networkidle2",
-    });
+    // Wait until network activity settles to 2 req/s
+    await page.goto(url, { waitUntil: "networkidle2" });
 
     await page.setViewport({
       width: 1920,
