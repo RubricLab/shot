@@ -16,6 +16,6 @@ Made for future usage with gpt-4-vision.
 
 ## Dev
 
-Run `bun i` in the **api/** and **web/** folders.
-
-Run `bun dev` in both folders.
+1. Run `bun i` in the **api/** and **web/** folders.
+2. Populate env vars in both folders: `cp .env.example .env`. You'll need a headless browser websocket URL eg. [browserless](https://www.browserless.io).
+3. Run `bun dev` in both folders.
