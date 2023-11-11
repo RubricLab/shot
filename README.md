@@ -2,6 +2,8 @@
 
 Grab a screenshot of any site.
 
+<img width="1318" alt="image" src="https://github.com/RubricLab/shot/assets/36117635/b6db6948-2c39-4252-8caf-ed90fba0f9d7">
+
 Try it [here](https://shot.rubric.sh).
 
 Try the API like this: [shot.api.rubric.sh?url=x.com](https://shot.api.rubric.sh?url=x.com). It returns a stream of an image.
