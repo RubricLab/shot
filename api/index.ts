@@ -30,6 +30,13 @@ Bun.serve({
 
     const screenshot = await page.screenshot();
 
-    return new Response(screenshot);
+    const res = new Response(screenshot);
+
+    // Set generous CORS headers
+    res.headers.set("Access-Control-Allow-Origin", "*");
+    res.headers.set("Access-Control-Allow-Headers", "*");
+    res.headers.set("Access-Control-Allow-Methods", "GET, POST");
+
+    return res;
   },
 });
