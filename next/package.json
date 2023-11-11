@@ -1,9 +1,6 @@
 {
   "dependencies": {
     "@prisma/client": "5.5.2",
-    "dotenv": "^16.3.1",
-    "framer-motion": "^10.16.4",
-    "lucide-react": "^0.291.0",
     "next": "^14.0.1",
     "prisma": "^5.5.2",
     "react": "^18.2.0",
@@ -37,7 +34,7 @@
     "build": "next build",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
-    "dev": "next dev",
+    "dev": "next dev --turbo",
     "format": "prettier --write . --ignore-path .gitignore",
     "generate": "touch prisma/dev.db",
     "lint": "eslint . --ext .js,.jsx,.cjs,.mjs,.json,.ts,.tsx",
