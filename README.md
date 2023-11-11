@@ -1,18 +1,14 @@
-# Browserless Example
+# Shot
 
-This example deploys a self-hosted version of [Browserless](https://browserless.io/).
+Grab a screenshot of any site.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/browserless)
+Try it [here](https://shot.rubric.sh).
 
-## ✨ Features
+Try the API like this: [shot.api.rubric.sh?url=x.com](https://shot.api.rubric.sh?url=x.com). It returns a stream of an image.
 
-- Browserless
+Inspired by 2 weeks of pain from [this project](https://copyai.rubric.sh/).
 
-## 💁‍♀️ How to use
+Made for future usage with gpt-4-vision.
 
-- Click the railway button 👆
-- Deploy
-
-## 📝 Notes
-- Source repo: https://github.com/browserless/chrome
-- Docs: https://docs.browserless.io/
+Roadmap
+- [ ] Run any script in the browser
