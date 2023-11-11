@@ -2,18 +2,18 @@ import Link from 'next/link'
 
 export default function Nav({title}: {title: string}) {
 	return (
-		<div className='fixed top-0 z-20 flex w-full items-baseline justify-between p-5'>
+		<div className='fixed top-0 z-20 flex w-full items-baseline justify-between p-5 px-10'>
 			<Link
 				className='text-xl font-bold no-underline'
-				href='https://github.com/rubriclab/create-rubric-app'
+				href='https://shot.api.rubric.sh?url=rubric.sh'
 				target='_blank'>
 				{title}
 			</Link>
 			<Link
-				href='https://rubriclabs.com/blog/cra'
+				href='https://github.com/RubricLab/shot'
 				target='_blank'
 				className='text-secondary no-underline'>
-				learn more
+				source
 			</Link>
 		</div>
 	)

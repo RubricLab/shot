@@ -2,7 +2,7 @@ import puppeteer from "puppeteer-core";
 
 Bun.serve({
   hostname: "::",
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 3001,
   fetch: async (request: Request) => {
     console.log("Starting up on " + process.env.PORT);
 

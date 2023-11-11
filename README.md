@@ -10,5 +10,12 @@ Inspired by 2 weeks of pain from [this project](https://copyai.rubric.sh/).
 
 Made for future usage with gpt-4-vision.
 
-Roadmap
+## Roadmap
+
 - [ ] Run any script in the browser
+
+## Dev
+
+Run `bun i` in the **api/** and **web/** folders.
+
+Run `bun dev` in both folders.
