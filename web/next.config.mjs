@@ -9,6 +9,12 @@ const nextConfig = {
 				hostname: 'picsum.photos',
 				port: '',
 				pathname: '/**'
+			},
+			{
+				protocol: 'https',
+				hostname: 'blob.vercel-storage.com',
+				port: '',
+				pathname: '/**.png'
 			}
 		]
 	}
