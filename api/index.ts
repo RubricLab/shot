@@ -2,9 +2,9 @@ import puppeteer from "puppeteer-core";
 
 Bun.serve({
   hostname: "::",
-  port: process.env.PORT ?? 3000,
+  port: process.env.PORT || 3000,
   fetch: async (request: Request) => {
-    console.log("Starting up");
+    console.log("Starting up on " + process.env.PORT);
 
     const { searchParams } = new URL(request.url);
 
@@ -12,9 +12,7 @@ Bun.serve({
 
     if (!url) return new Response("Do ?url=https://example.com");
 
-    console.log("URL: ", url);
-
-    if (!url.startsWith("https://")) url = `https://${url.split("://")[1]}`;
+    url = url.startsWith("https://") ? url : `https://${url}`;
 
     const browser = await puppeteer.connect({
       browserWSEndpoint: process.env.BROWSER_URL,
