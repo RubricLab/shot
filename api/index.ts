@@ -4,7 +4,7 @@ import { put } from "@vercel/blob";
 console.log("🚀 Starting up on port " + process.env.PORT);
 
 const headers = {
-  common: {
+  base: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "*",
     "Access-Control-Allow-Methods": "GET, POST",
@@ -18,13 +18,11 @@ Bun.serve({
     const { searchParams } = new URL(request.url);
 
     let url = searchParams.get("url");
-    let upload = Boolean(searchParams.get("upload"));
+    let upload = searchParams.get("upload");
 
     if (!url) return new Response("Add ?url=example.com");
 
-    console.log(
-      `📸 Taking screenshot of ${url}. ${upload ? "Uploading." : ""}`
-    );
+    console.log(`📸 Taking screenshot of ${url}. ${upload && "Uploading."}`);
 
     url = url.startsWith("https://") ? url : `https://${url}`;
 
@@ -46,13 +44,14 @@ Bun.serve({
       res = new Response(screenshot, {
         headers: {
           "Content-Type": "image/png",
-          ...headers.common,
+          ...headers.base,
         },
       });
     } else {
       const uid = Math.random().toString(36).substring(2, 15);
-      const strippedUrl = url.replace(/(^\w+:|^)\/\//, "");
-      const fileName = `${strippedUrl}-${uid}.png`;
+      const baseUrl = url.replace(/(^\w+:|^)\/\//, "");
+      const fileName = `${baseUrl}-${uid}.png`;
+
       const blob = new Blob([screenshot]);
 
       const upload = await put(fileName, blob, { access: "public" });
@@ -60,7 +59,7 @@ Bun.serve({
       res = new Response(upload.url, {
         headers: {
           "Content-Type": "text/plain",
-          ...headers.common,
+          ...headers.base,
         },
       });
     }

@@ -1,26 +1,27 @@
 'use client'
 
 import Image from 'next/image'
-import {useState} from 'react'
+import {FormEvent, useState} from 'react'
 import {copyToClipboard} from '~/utils'
 
-const placeholderImg = `https://picsum.photos/seed/${Math.random()}/500/300?blur=10`
-const placeholderUrl = 'rubric.sh'
+const placeholder = {
+	img: `https://picsum.photos/seed/${Math.random()}/500/300?blur=10`,
+	url: 'rubric.sh'
+}
 
 export const Form = () => {
-	const [img, setImg] = useState<any>(placeholderImg)
+	const [img, setImg] = useState<any>(placeholder.img)
 	const [time, setTime] = useState<number>()
 	const [endpoint, setEndpoint] = useState(
-		`${process.env.NEXT_PUBLIC_API_URL}?url=${placeholderUrl}`
+		`${process.env.NEXT_PUBLIC_API_URL}?url=${placeholder.url}`
 	)
 
-	const submit = async (e: any) => {
+	const submit = async (e: FormEvent) => {
 		e.preventDefault()
 
 		const start = Date.now()
 
-		const res = await fetch(endpoint)
-		const blob = await res.blob()
+		const blob = await fetch(endpoint).then(res => res.blob())
 		const obj = URL.createObjectURL(blob)
 
 		setTime(Date.now() - start)
@@ -50,7 +51,7 @@ export const Form = () => {
 			<input
 				name='url'
 				type='text'
-				defaultValue={placeholderUrl}
+				defaultValue={placeholder.url}
 			/>
 			<div className='flex gap-2'>
 				<input
