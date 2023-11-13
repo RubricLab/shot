@@ -76,7 +76,7 @@ export const Form = () => {
 				/>
 			</div>
 			<div className={time ? 'opacity-100' : 'opacity-0'}>
-				Done in <span className='font-bold'>{time} ms</span>.
+				Done in <span className='font-bold'>{time / 1000} s</span>.
 			</div>
 			<div className='flex w-full items-center justify-between gap-2'>
 				<code className='grow'>{endpoint}</code>
