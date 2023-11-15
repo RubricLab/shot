@@ -18,8 +18,9 @@
 	input[type='checkbox'] {
 		@apply bg-primary h-6 w-6 shrink-0 appearance-none bg-opacity-60 p-0 checked:bg-green-500;
 	}
-	button {
-		@apply border-primary hover:bg-secondary bg-primary whitespace-nowrap rounded-md px-4 py-2 transition-colors active:bg-green-500/60 disabled:cursor-not-allowed;
+	button[type='submit'],
+	button[type='button'] {
+		@apply border-primary hover:bg-secondary whitespace-nowrap rounded-md bg-white px-4 py-2 transition-colors active:bg-green-500/60 disabled:cursor-not-allowed;
 	}
 	code {
 		@apply border-primary rounded-md bg-neutral-200 bg-opacity-60 p-2.5 px-3 text-sm dark:bg-neutral-800;

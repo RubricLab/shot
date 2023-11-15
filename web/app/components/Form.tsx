@@ -9,12 +9,12 @@ const placeholder = {
 	url: 'rubric.sh'
 }
 
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
+
 export const Form = () => {
 	const [img, setImg] = useState<any>(placeholder.img)
 	const [time, setTime] = useState<number>()
-	const [endpoint, setEndpoint] = useState(
-		`${process.env.NEXT_PUBLIC_API_URL}?url=${placeholder.url}`
-	)
+	const [endpoint, setEndpoint] = useState(`${apiUrl}?url=${placeholder.url}`)
 
 	const submit = async e => {
 		e.preventDefault()
@@ -65,7 +65,7 @@ export const Form = () => {
 					name='upload'
 					type='checkbox'
 				/>
-				<label htmlFor='upload'>Upload to bucket</label>
+				<label htmlFor='upload'>Upload & return a URL</label>
 			</div>
 			<div className='relative h-96 w-full'>
 				<Image
@@ -75,8 +75,22 @@ export const Form = () => {
 					alt='screenshot'
 				/>
 			</div>
-			<div className={time ? 'opacity-100' : 'opacity-0'}>
-				Done in <span className='font-bold'>{time / 1000} s</span>.
+			<div className='flex w-full items-center justify-between'>
+				<div className={`${time ? 'opacity-100' : 'opacity-0'}`}>
+					Done in <span className='font-bold'>{time / 1000} s</span>.
+				</div>
+				<button
+					className={`transition-opacity ${
+						img.includes('storage.com') ? 'opacity-100' : 'opacity-0'
+					}`}
+					type='button'>
+					<a
+						download
+						className='no-underline'
+						href={img}>
+						Download
+					</a>
+				</button>
 			</div>
 			<div className='flex w-full items-center justify-between gap-2'>
 				<code className='grow'>{endpoint}</code>
