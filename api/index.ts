@@ -35,7 +35,7 @@ Bun.serve({
 
       // Wait until network activity settles to 2 req/s
       await page.goto(url, { waitUntil: "networkidle2" });
-      await page.setViewport({ width: 1920, height: 1080 });
+      await page.setViewport({ width: 1920, height: 1200 });
 
       const screenshot = await page.screenshot();
 
