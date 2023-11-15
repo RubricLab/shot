@@ -74,8 +74,9 @@ export const Form = () => {
 					Take screenshot
 				</button>
 			</div>
-			<div className='flex grow gap-2 pb-8'>
+			<div className='flex grow justify-end gap-2 pb-8'>
 				<input
+					id='upload'
 					name='upload'
 					disabled={loading}
 					type='checkbox'

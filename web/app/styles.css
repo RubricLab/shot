@@ -16,7 +16,10 @@
 		@apply border-primary bg-primary w-full rounded-md px-3 py-2 focus:outline-none;
 	}
 	input[type='checkbox'] {
-		@apply bg-primary h-6 w-6 shrink-0 appearance-none bg-opacity-60 p-0 checked:bg-green-500;
+		@apply bg-primary h-6 w-6 shrink-0 cursor-pointer appearance-none p-0 transition-colors checked:border-green-600/80 checked:bg-green-500/80 enabled:hover:bg-green-500/20 disabled:cursor-not-allowed disabled:opacity-60;
+	}
+	label {
+		@apply cursor-pointer;
 	}
 	button[type='submit'],
 	button[type='button'] {
