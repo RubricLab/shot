@@ -2,7 +2,7 @@
 
 Grab a screenshot of any site.
 
-<img width="736" alt="image" src="https://github.com/RubricLab/shot/assets/36117635/3eca0b3b-3464-419d-b715-29f815106b68">
+<img width="773" alt="image" src="https://github.com/RubricLab/shot/assets/36117635/8815ee0b-e1a3-4d6e-be38-475a77edca2e">
 
 Try it [here](https://shot.rubric.sh).
 
