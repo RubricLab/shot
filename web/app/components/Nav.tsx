@@ -9,12 +9,7 @@ export default function Nav({title}: {title: string}) {
 				target='_blank'>
 				{title}
 			</Link>
-			<Link
-				href='https://github.com/RubricLab/shot'
-				target='_blank'
-				className='text-secondary no-underline'>
-				source
-			</Link>
+			<div />
 		</div>
 	)
 }

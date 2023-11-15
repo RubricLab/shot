@@ -1,7 +1,6 @@
 'use client'
 
-import Image from 'next/image'
-import {useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {copyToClipboard} from '~/utils'
 
 const placeholder = {
@@ -16,6 +15,8 @@ export const Form = () => {
 	const [time, setTime] = useState<number>()
 	const [endpoint, setEndpoint] = useState(`${apiUrl}?url=${placeholder.url}`)
 	const [loading, setLoading] = useState(false)
+
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	const submit = async e => {
 		e.preventDefault()
@@ -36,6 +37,10 @@ export const Form = () => {
 		setLoading(false)
 	}
 
+	useEffect(() => {
+		inputRef?.current?.focus?.()
+	}, [inputRef])
+
 	return (
 		<form
 			onSubmit={submit}
@@ -54,9 +59,10 @@ export const Form = () => {
 					return curr.href
 				})
 			}}
-			className='w-full max-w-6xl space-y-4'>
+			className='flex w-full max-w-5xl flex-col space-y-4'>
 			<div className='flex gap-2'>
 				<input
+					ref={inputRef}
 					name='url'
 					type='text'
 					defaultValue={placeholder.url}
@@ -76,11 +82,13 @@ export const Form = () => {
 				/>
 				<label htmlFor='upload'>Upload & return a URL</label>
 			</div>
-			<div className='relative h-96 w-full'>
-				<Image
+			<div className='h-96 w-full grow rounded-md bg-gray-100'>
+				{/* eslint-disable-next-line @next/next/no-img-element */}
+				<img
 					src={img || placeholder.img}
-					fill
-					className={`object-contain ${loading ? 'animate-pulse' : ''}`}
+					className={`h-full w-full rounded-md border-2 object-cover shadow-sm ${
+						loading ? 'animate-pulse' : ''
+					}`}
 					alt='screenshot'
 				/>
 			</div>
@@ -91,7 +99,7 @@ export const Form = () => {
 				<button
 					disabled={!img}
 					className={`transition-opacity ${
-						img?.length > 0 ? 'opacity-100' : 'opacity-0'
+						img?.length > 0 ? 'opacity-100' : '!opacity-0'
 					}`}
 					type='button'>
 					<a

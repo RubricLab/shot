@@ -1,5 +1,6 @@
 import {Plus_Jakarta_Sans} from 'next/font/google'
 import BackgroundGrid from './components/BackgroundGrid'
+import {Footer} from './components/Footer'
 import Nav from './components/Nav'
 import './styles.css'
 
@@ -29,6 +30,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
 				<div className='z-10 flex w-full max-w-3xl items-center justify-center'>
 					{children}
 				</div>
+				<Footer />
 			</body>
 		</html>
 	)
