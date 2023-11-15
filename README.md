@@ -18,6 +18,8 @@ Made for future usage with gpt-4-vision.
 
 ## Dev
 
-1. Run `bun i` in the **api/** and **web/** folders.
-2. Populate env vars in both folders: `cp .env.example .env`. You'll need a headless browser websocket URL eg. [browserless](https://www.browserless.io).
-3. Run `bun dev` in both folders.
+1. Run `bun i` in the [api](/api) and [web](/web) folders.
+2. Populate env vars in both folders: `cp .env.example .env`.
+3. Populate `BROWSER_URL` with a headless browser websocket URL eg. [browserless](https://www.browserless.io).
+4. Populate `BLOB_READ_WRITE_TOKEN` with a bucket URL eg. [Vercel Blob](https://vercel.com/docs/storage/vercel-blob).
+5. Run `bun dev` in both folders.
