@@ -16,8 +16,9 @@ Bun.serve({
   port: process.env.PORT || 3001,
   fetch: async (request: Request) => {
     try {
-      let url: string;
-      let upload: string;
+      let url = "";
+      let upload = "";
+      let scripts: string[] = [];
 
       if (request.method === "GET") {
         const { searchParams } = new URL(request.url);
@@ -31,6 +32,7 @@ Bun.serve({
 
         url = body.url;
         upload = body.upload;
+        scripts = body.scripts;
 
         if (!url)
           return new Response('Pass { "url": "example.com" } to the body');
@@ -49,6 +51,14 @@ Bun.serve({
       // Wait until network activity settles to 2 req/s
       await page.goto(url, { waitUntil: "networkidle2" });
       await page.setViewport({ width: 1920, height: 1200 });
+
+      // Run scripts on page
+      if (scripts && Array.isArray(scripts) && scripts?.length > 0) {
+        for (const script of scripts) {
+          console.log("🏃 Running: " + script);
+          await page.evaluate(script, script);
+        }
+      }
 
       const screenshot = await page.screenshot();
 
