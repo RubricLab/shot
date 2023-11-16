@@ -6,15 +6,7 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: 'picsum.photos',
-				port: '',
-				pathname: '/**'
-			},
-			{
-				protocol: 'https',
-				hostname: 's3nxvo8djqamvzft.public.blob.vercel-storage.com',
-				port: '',
-				pathname: '/**.png'
+				hostname: '**'
 			}
 		]
 	}
