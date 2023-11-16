@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer-core";
 import { put } from "@vercel/blob";
+import { z } from "zod";
 
 console.log("🚀 Starting up on port " + process.env.PORT);
 
@@ -10,6 +11,12 @@ const headers = {
     "Access-Control-Allow-Methods": "GET, POST",
   },
 };
+
+const schema = z.object({
+  url: z.string(),
+  upload: z.string().optional(),
+  scripts: z.array(z.string()).optional(),
+});
 
 Bun.serve({
   hostname: "::",
@@ -34,9 +41,15 @@ Bun.serve({
         upload = body.upload;
         scripts = body.scripts;
 
-        if (!url)
-          return new Response('Pass { "url": "example.com" } to the body');
+        if (!url) return new Response('Pass { "url": "example.com" } in body');
       }
+
+      // Validate inputs against schema
+      schema.parse({
+        url,
+        upload,
+        scripts,
+      });
 
       console.log(`📸 Taking screenshot of ${url}`);
 
@@ -53,16 +66,14 @@ Bun.serve({
       await page.setViewport({ width: 1920, height: 1200 });
 
       // Run scripts on page
-      if (scripts && Array.isArray(scripts) && scripts?.length > 0) {
-        for (const script of scripts) {
-          console.log("🏃 Running: " + script);
-          await page.evaluate(script, script);
-        }
+      for (const script of scripts) {
+        console.log("🏃 Running: " + script);
+        await page.evaluate(script, script);
       }
 
       const screenshot = await page.screenshot();
 
-      let res: any;
+      let res: Response;
 
       if (!upload) {
         res = new Response(screenshot, {
