@@ -16,12 +16,25 @@ Bun.serve({
   port: process.env.PORT || 3001,
   fetch: async (request: Request) => {
     try {
-      const { searchParams } = new URL(request.url);
+      let url: string;
+      let upload: string;
 
-      let url = searchParams.get("url");
-      let upload = searchParams.get("upload");
+      if (request.method === "GET") {
+        const { searchParams } = new URL(request.url);
 
-      if (!url) return new Response("Add ?url=example.com");
+        url = searchParams.get("url") as string;
+        upload = searchParams.get("upload") as string;
+
+        if (!url) return new Response("Add ?url=example.com to the URL");
+      } else {
+        const body = (await request.json()) as any;
+
+        url = body.url;
+        upload = body.upload;
+
+        if (!url)
+          return new Response('Pass { "url": "example.com" } to the body');
+      }
 
       console.log(`📸 Taking screenshot of ${url}`);
 
