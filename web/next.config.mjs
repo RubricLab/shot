@@ -6,7 +6,15 @@ const nextConfig = {
 		remotePatterns: [
 			{
 				protocol: 'https',
-				hostname: '**'
+				hostname: 'github.com',
+				port: '',
+				pathname: '/RubricLab/**'
+			},
+			{
+				protocol: 'https',
+				hostname: 's3nxvo8djqamvzft.public.blob.vercel-storage.com',
+				port: '',
+				pathname: '/**.png'
 			}
 		]
 	}
