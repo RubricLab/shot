@@ -59,7 +59,7 @@ export const Form = () => {
 					return curr.href
 				})
 			}}
-			className='flex w-full max-w-5xl flex-col space-y-4'>
+			className='flex w-full max-w-5xl flex-col space-y-2 sm:space-y-4'>
 			<div className='flex gap-2'>
 				<input
 					ref={inputRef}
@@ -83,7 +83,7 @@ export const Form = () => {
 				/>
 				<label htmlFor='upload'>Upload & return a URL</label>
 			</div>
-			<div className='h-96 w-full grow rounded-md bg-gray-100'>
+			<div className='w-full grow rounded-md bg-gray-100 sm:h-96'>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
 					src={img || placeholder.img}
@@ -107,11 +107,11 @@ export const Form = () => {
 						download
 						className='no-underline'
 						href={img}>
-						Download
+						↓
 					</a>
 				</button>
 			</div>
-			<div className='flex w-full items-center justify-between gap-2 pt-8'>
+			<div className='flex w-full flex-wrap items-center justify-between gap-2 sm:pt-8'>
 				<code className='grow'>{endpoint}</code>
 				<button
 					type='button'
