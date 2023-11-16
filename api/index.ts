@@ -31,7 +31,7 @@ Bun.serve({
         const { searchParams } = new URL(request.url);
 
         url = searchParams.get("url") as string;
-        upload = searchParams.get("upload") as string;
+        upload = searchParams.get("upload") || "";
 
         if (!url) return new Response("Add ?url=example.com to the URL");
       } else {
