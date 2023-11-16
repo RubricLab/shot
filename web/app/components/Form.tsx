@@ -5,7 +5,7 @@ import {toast} from 'sonner'
 import {copyToClipboard} from '~/utils'
 
 const placeholder = {
-	img: `https://picsum.photos/500/300?blur=10`,
+	img: `https://picsum.photos/500/300?blur=10&random=${Math.random()}`,
 	url: 'rubric.sh'
 }
 
