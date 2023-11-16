@@ -26,7 +26,7 @@
 		@apply border-primary enabled:hover:bg-secondary whitespace-nowrap rounded-md bg-white px-4 py-2 transition-all active:bg-green-500/60 disabled:cursor-not-allowed disabled:opacity-60;
 	}
 	code {
-		@apply border-primary rounded-md bg-neutral-200 bg-opacity-60 p-2.5 px-3 text-xs dark:bg-neutral-800 sm:text-sm;
+		@apply border-primary rounded-md bg-neutral-100 p-2.5 px-3 text-xs dark:bg-neutral-800 sm:text-sm;
 	}
 	a {
 		@apply underline underline-offset-4 hover:opacity-80;

@@ -1,6 +1,7 @@
 'use client'
 
 import {useEffect, useRef, useState} from 'react'
+import {toast} from 'sonner'
 import {copyToClipboard} from '~/utils'
 
 const placeholder = {
@@ -12,7 +13,6 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const Form = () => {
 	const [img, setImg] = useState<any>()
-	const [time, setTime] = useState<number>()
 	const [endpoint, setEndpoint] = useState(`${apiUrl}?url=${placeholder.url}`)
 	const [loading, setLoading] = useState(false)
 
@@ -27,13 +27,20 @@ export const Form = () => {
 		const form = new FormData(e.target)
 		const upload = form.get('upload')
 
-		const res = await fetch(endpoint)
-		const file = await res[upload ? 'text' : 'blob']()
-		const obj = upload ? file : URL.createObjectURL(file as Blob)
+		try {
+			const res = await fetch(endpoint)
+			const file = await res[upload ? 'text' : 'blob']()
+			const obj = upload ? file : URL.createObjectURL(file as Blob)
 
-		setTime(Date.now() - start)
+			const end = Date.now() - start
 
-		setImg(obj)
+			setImg(obj)
+
+			toast.success(`Done in ${end / 1000} s`)
+		} catch (error) {
+			toast.error(error.message || 'Something went wrong')
+		}
+
 		setLoading(false)
 	}
 
@@ -59,13 +66,13 @@ export const Form = () => {
 					return curr.href
 				})
 			}}
-			className='flex w-full max-w-5xl flex-col space-y-2 sm:space-y-4'>
+			className='flex w-full max-w-6xl flex-col space-y-2 sm:space-y-4'>
 			<div className='flex gap-2'>
 				<input
 					ref={inputRef}
 					name='url'
 					type='text'
-					defaultValue={placeholder.url}
+					placeholder={placeholder.url}
 				/>
 				<button
 					disabled={loading}
@@ -83,24 +90,19 @@ export const Form = () => {
 				/>
 				<label htmlFor='upload'>Upload & return a URL</label>
 			</div>
-			<div className='w-full grow rounded-md bg-gray-100 sm:h-96'>
+			<div className='group relative max-h-[24rem] w-full grow overflow-y-scroll rounded-md border-2 bg-gray-100 shadow-sm'>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
 					src={img || placeholder.img}
-					className={`h-full w-full rounded-md border-2 object-cover shadow-sm ${
+					className={`w-full rounded-md object-cover object-top ${
 						loading ? 'animate-pulse' : ''
 					}`}
 					alt='screenshot'
 				/>
-			</div>
-			<div className='flex w-full items-baseline justify-between'>
-				<div className={`${time ? 'opacity-100' : 'opacity-0'}`}>
-					Done in <span className='font-bold'>{time / 1000} s</span>.
-				</div>
 				<button
 					disabled={!img}
-					className={`transition-opacity ${
-						img?.length > 0 ? 'opacity-100' : '!opacity-0'
+					className={`absolute bottom-2 right-2 transition-opacity ${
+						img?.length > 0 ? 'opacity-40 group-hover:opacity-100' : '!opacity-0'
 					}`}
 					type='button'>
 					<a
@@ -111,11 +113,14 @@ export const Form = () => {
 					</a>
 				</button>
 			</div>
-			<div className='flex w-full flex-wrap items-center justify-between gap-2 sm:pt-8'>
+			<div className='flex w-full flex-wrap items-center justify-between gap-2'>
 				<code className='grow'>{endpoint}</code>
 				<button
 					type='button'
-					onClick={() => copyToClipboard(endpoint)}>
+					onClick={() => {
+						toast.success('Copied to clipboard')
+						copyToClipboard(endpoint)
+					}}>
 					Copy
 				</button>
 			</div>
