@@ -101,7 +101,7 @@ export const Form = () => {
 				/>
 				<button
 					disabled={!img}
-					className={`fixed bottom-2 right-2 opacity-40 transition-opacity group-hover:opacity-100`}
+					className={`absolute right-2 top-2 ml-auto opacity-40 transition-opacity group-hover:opacity-100`}
 					type='button'>
 					<a
 						download
