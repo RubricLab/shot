@@ -12,7 +12,7 @@ const placeholder = {
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 export const Form = () => {
-	const [img, setImg] = useState<any>()
+	const [img, setImg] = useState<any>(placeholder.img)
 	const [endpoint, setEndpoint] = useState(`${apiUrl}?url=${placeholder.url}`)
 	const [loading, setLoading] = useState(false)
 
@@ -93,7 +93,7 @@ export const Form = () => {
 			<div className='group relative max-h-[24rem] w-full grow overflow-y-scroll rounded-md border-2 bg-gray-100 shadow-sm'>
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img
-					src={img || placeholder.img}
+					src={img}
 					className={`w-full rounded-md object-cover object-top ${
 						loading ? 'animate-pulse' : ''
 					}`}
@@ -101,9 +101,7 @@ export const Form = () => {
 				/>
 				<button
 					disabled={!img}
-					className={`absolute bottom-2 right-2 transition-opacity ${
-						img?.length > 0 ? 'opacity-40 group-hover:opacity-100' : '!opacity-0'
-					}`}
+					className={`fixed bottom-2 right-2 opacity-40 transition-opacity group-hover:opacity-100`}
 					type='button'>
 					<a
 						download
