@@ -24,7 +24,7 @@ Bun.serve({
   fetch: async (request: Request) => {
     try {
       let url = "";
-      let upload = "";
+      let upload: string;
       let scripts: string[] = [];
 
       if (request.method === "GET") {
