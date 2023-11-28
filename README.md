@@ -14,7 +14,7 @@ Made for future usage with gpt-4-vision.
 
 ## Roadmap
 
-- [ ] Run any script in the browser
+- [x] Run any script in the browser
 
 ## Dev
 
