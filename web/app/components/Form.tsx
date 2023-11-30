@@ -28,7 +28,16 @@ export const Form = () => {
 		const upload = form.get('upload')
 
 		try {
-			const res = await fetch(endpoint)
+			const res = await fetch('/screenshot', {
+				method: 'POST',
+				body: JSON.stringify({endpoint, upload})
+			})
+
+			if (!res.ok) {
+				const err = await res.text()
+				throw new Error(err)
+			}
+
 			const file = await res[upload ? 'text' : 'blob']()
 			const obj = upload ? file : URL.createObjectURL(file as Blob)
 
@@ -90,26 +99,28 @@ export const Form = () => {
 				/>
 				<label htmlFor='upload'>Upload & return a URL</label>
 			</div>
-			<div className='group relative max-h-[24rem] w-full grow overflow-y-scroll rounded-md border-2 bg-gray-100 shadow-sm'>
-				{/* eslint-disable-next-line @next/next/no-img-element */}
-				<img
-					src={img}
-					className={`w-full rounded-md object-cover object-top ${
-						loading ? 'animate-pulse' : ''
-					}`}
-					alt='screenshot'
-				/>
-				<button
-					disabled={!img}
-					className={`absolute right-2 top-2 ml-auto opacity-40 transition-opacity group-hover:opacity-100`}
-					type='button'>
-					<a
-						download
-						className='no-underline'
-						href={img}>
-						↓
-					</a>
-				</button>
+			<div className='relative'>
+				<div className='group max-h-[26rem] w-full grow overflow-y-scroll rounded-md border-2 bg-gray-100 shadow-sm'>
+					{/* eslint-disable-next-line @next/next/no-img-element */}
+					<img
+						src={img}
+						className={`w-full rounded-sm object-cover object-top ${
+							loading ? 'animate-pulse' : ''
+						}`}
+						alt='screenshot'
+					/>
+					<button
+						disabled={!img}
+						className={`absolute right-2 top-2 ml-auto opacity-40 transition-opacity group-hover:opacity-100`}
+						type='button'>
+						<a
+							download
+							className='no-underline'
+							href={img}>
+							↓
+						</a>
+					</button>
+				</div>
 			</div>
 			<div className='flex w-full flex-wrap items-center justify-between gap-2'>
 				<code className='grow'>{endpoint}</code>

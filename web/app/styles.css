@@ -38,7 +38,7 @@
 		@apply bg-white dark:bg-black;
 	}
 	.bg-secondary {
-		@apply bg-neutral-300 dark:bg-neutral-700;
+		@apply bg-neutral-200 dark:bg-neutral-700;
 	}
 	.border-primary {
 		@apply border-2 border-neutral-200 dark:border-neutral-800;

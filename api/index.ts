@@ -1,14 +1,15 @@
 import puppeteer from "puppeteer-core";
 import { put } from "@vercel/blob";
 import { z } from "zod";
+import { verifyKey } from "@unkey/api";
 
 console.log("🚀 Starting up on port " + process.env.PORT);
 
 const headers = {
   base: {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "*",
-    "Access-Control-Allow-Methods": "GET, POST",
+    "Access-Control-Allow-Headers": "Authorization, Content-Type",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
   },
 };
 
@@ -23,6 +24,36 @@ Bun.serve({
   port: process.env.PORT || 3001,
   fetch: async (request: Request) => {
     try {
+      if (request.method === "OPTIONS")
+        return new Response("ok", { headers: headers.base });
+
+      const key = request.headers.get("Authorization")?.replace("Bearer ", "");
+      if (!key) {
+        return new Response(
+          "Pass { headers: { Authorization: 'Bearer shot_abc' } }",
+          {
+            status: 401,
+            headers: headers.base,
+          }
+        );
+      }
+
+      const { result, error } = await verifyKey(key);
+
+      if (error) {
+        console.error(error);
+        return new Response("Internal Server Error", {
+          status: 500,
+          headers: headers.base,
+        });
+      } else if (!result.valid) {
+        console.warn("Invalid API key: ", result.code);
+        return new Response(result.code || "Invalid API key", {
+          status: 401,
+          headers: headers.base,
+        });
+      }
+
       let url = "";
       let upload: string;
       let scripts: string[] = [];

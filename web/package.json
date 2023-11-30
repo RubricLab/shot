@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "@prisma/client": "5.5.2",
-    "next": "^14.0.1",
+    "next": "^14.0.3",
     "prisma": "^5.5.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -15,7 +15,7 @@
     "@rubriclab/tailwind-config": "latest",
     "@rubriclab/typescript-config": "latest",
     "@t3-oss/env-nextjs": "^0.7.1",
-    "@types/node": "20.8.10",
+    "@types/node": "^20.10.1",
     "@types/react": "18.2.33",
     "@types/react-dom": "18.2.14",
     "autoprefixer": "^10.4.16",
