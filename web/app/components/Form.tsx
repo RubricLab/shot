@@ -127,7 +127,7 @@ export const Form = () => {
 				<button
 					type='button'
 					onClick={() => {
-						toast.success('Copied to clipboard')
+						toast.success('Copied. DM us for an API key.')
 						copyToClipboard(endpoint)
 					}}>
 					Copy
